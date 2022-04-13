@@ -23,7 +23,9 @@ map = folium.Map(location=[59.942012, 30.304139], zoom_start=10, tiles="Stamen T
 fg = folium.FeatureGroup(name="My Map")
 
 for lt, ln, pi in zip(lat, lon, pei):
-    fg.add_child(folium.Marker(location=[lt, ln], popup=str(pi)+" PEI", icon=folium.Icon(color=color_producer(pi))))
+    fg.add_child(folium.CircleMarker(location=[lt, ln], radius=6,  popup=str(pi)+" PEI", fill_opacity=0.7,
+                                     fill_color=color_producer(pi), color='grey', fill=True,
+                                     icon=folium.Icon(color=color_producer(pi))))
 
 map.add_child(fg)
 
