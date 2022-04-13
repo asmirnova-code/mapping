@@ -4,13 +4,26 @@ import pandas
 data = pandas.read_csv("volcano.csv")
 lat = list(data['Latitude'])
 lon = list(data['Longitude'])
+# volcano = list(data['V_Name'])
+pei = list(data['PEI'])
+
+def color_producer(pei_index):
+    if pei_index < 2:
+        return 'green'
+    elif 2 <= pei_index < 4:
+        return 'beige'
+    elif 4 <= pei_index < 6:
+        return 'orange'
+    else:
+        return 'red'
+
 
 map = folium.Map(location=[59.942012, 30.304139], zoom_start=10, tiles="Stamen Terrain")
 
 fg = folium.FeatureGroup(name="My Map")
 
-for lt, ln in zip(lat, lon):
-    fg.add_child(folium.Marker(location=[lt, ln], popup="I am here", icon=folium.Icon(color='red')))
+for lt, ln, pi in zip(lat, lon, pei):
+    fg.add_child(folium.Marker(location=[lt, ln], popup=str(pi)+" PEI", icon=folium.Icon(color=color_producer(pi))))
 
 map.add_child(fg)
 
